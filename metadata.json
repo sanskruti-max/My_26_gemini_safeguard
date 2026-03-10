@@ -1,0 +1,5 @@
+{
+  "name": "Safe Guard",
+  "description": "A message analysis tool to ensure content safety and detect potential threats.",
+  "requestFramePermissions": []
+}
