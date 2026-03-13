@@ -53,11 +53,11 @@ const Footer = () => (
   <footer className="py-12 border-t border-zinc-900 mt-auto bg-zinc-950">
     <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
       <div className="flex items-center gap-6 mb-4">
-        <div className="w-8 h-[1px] bg-zinc-800" />
-        <p className="text-zinc-500 text-xs font-bold uppercase tracking-[0.3em]">
+        <div className="w-12 h-[1px] bg-emerald-500/20" />
+        <p className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-white to-emerald-400 text-sm font-black uppercase tracking-[0.4em] drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
           Sanskruti founder and creater
         </p>
-        <div className="w-8 h-[1px] bg-zinc-800" />
+        <div className="w-12 h-[1px] bg-emerald-500/20" />
       </div>
       <div className="flex gap-8 text-zinc-600 text-xs uppercase tracking-widest font-medium">
         <a href="#" className="hover:text-emerald-500 transition-colors">Privacy</a>
@@ -283,8 +283,24 @@ const AnalysisPage = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="space-y-8"
+              className={`space-y-8 p-1 rounded-[2.5rem] transition-all duration-500 ${
+                result.categories.spam > 70 
+                  ? 'bg-gradient-to-b from-red-500/20 to-transparent ring-2 ring-red-500 shadow-[0_0_30px_rgba(239,68,68,0.2)]' 
+                  : ''
+              }`}
             >
+              {result.categories.spam > 70 && (
+                <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="bg-red-600 text-white p-4 rounded-2xl flex items-center justify-center gap-3 animate-pulse shadow-lg shadow-red-500/40"
+                >
+                  <AlertTriangle className="w-6 h-6" />
+                  <span className="text-sm font-black uppercase tracking-[0.3em]">Critical Spam Alert Detected</span>
+                  <AlertTriangle className="w-6 h-6" />
+                </motion.div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="p-6 rounded-3xl glass flex flex-col items-center justify-center text-center relative overflow-hidden group">
                   <div className="text-4xl font-black text-white mb-1">{result.safetyScore}%</div>
@@ -406,6 +422,12 @@ const AnalysisPage = () => {
                     <CategoryBar label="Malware" value={result.categories.malware} />
                     <CategoryBar label="Hate Speech" value={result.categories.hateSpeech} />
                     <CategoryBar label="Spam" value={result.categories.spam} />
+                    {result.categories.spam > 70 && (
+                      <div className="text-[10px] font-black text-red-500 uppercase tracking-widest animate-pulse flex items-center gap-1">
+                        <AlertTriangle className="w-3 h-3" />
+                        High Spam Probability
+                      </div>
+                    )}
                     <CategoryBar label="Harassment" value={result.categories.harassment} />
                   </div>
                 </div>
