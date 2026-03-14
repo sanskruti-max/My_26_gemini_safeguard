@@ -48,6 +48,10 @@
   @apply mb-1;
 }
 
+.threat-highlight {
+  @apply bg-red-500/20 text-red-400 px-1 rounded font-bold border-b border-red-500/40;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
